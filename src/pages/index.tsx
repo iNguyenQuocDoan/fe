@@ -21,7 +21,7 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Button variant='contained'>Hello world check deploy </Button>
+      <Button variant='contained'>Hello world check deploy 1 </Button>
     </>
   )
 }
