@@ -3,6 +3,8 @@ import Head from 'next/head'
 import Button from '@mui/material/Button'
 import axios from 'axios'
 import { useEffect } from 'react'
+import { useTheme } from '@emotion/react'
+import { Typography } from '@mui/material'
 
 export default function Home() {
   const fetchApiUser = async () => {
@@ -13,6 +15,9 @@ export default function Home() {
     fetchApiUser()
   }, [])
 
+  const theme = useTheme()
+  console.log("theme", { theme })
+
   return (
     <>
       <Head>
@@ -21,7 +26,7 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Button variant='contained'>Hello world check deploy</Button>
+      <Typography >Hello world check deploy</Typography>
     </>
   )
 }
