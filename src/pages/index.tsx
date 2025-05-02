@@ -4,19 +4,21 @@ import Head from 'next/head'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { useTheme } from '@emotion/react'
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
+import CustomTextField from 'src/components/text-field'
 
 export default function Home() {
-  const fetchApiUser = async () => {
-    await axios.get("https://api-shop-lks2.onrender.com/api/users?limit=10&page=1&order=created%20asc")
-      .then((res) => console.log("res", res))
-  }
-  useEffect(() => {
-    fetchApiUser()
-  }, [])
+  // const fetchApiUser = async () => {
+  //   await axios
+  //     .get('https://api-shop-lks2.onrender.com/api/users?limit=10&page=1&order=created%20asc')
+  //     .then(res => console.log('res', res))
+  // }
+  // useEffect(() => {
+  //   fetchApiUser()
+  // }, [])
 
-  const theme = useTheme()
-  console.log("theme", { theme })
+  // const theme = useTheme()
+  // console.log('theme', { theme })
 
   return (
     <>
@@ -26,7 +28,9 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Typography >Hello world check deploy</Typography>
+      <Box sx={{ margin: 6, width: "200px" }}>
+        <CustomTextField id='outlined-multiline-flexible' label='Multiline' />
+      </Box>
     </>
   )
 }
