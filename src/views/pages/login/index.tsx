@@ -108,7 +108,11 @@ const LoginPage: NextPage<TProps> = () => {
                         alt='login image'
                         style={{
                             height: 'auto',
-                            width: 'auto'
+                            width: 'auto',
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center"
+
                         }}
                     />
                 </Box>
