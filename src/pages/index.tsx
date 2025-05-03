@@ -29,7 +29,7 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Box sx={{ margin: 6, width: "200px" }}>
-        <CustomTextField id='outlined-multiline-flexible' label='Multiline' />
+        <CustomTextField id='outlined-multiline-flexible' label='text' />
       </Box>
     </>
   )
