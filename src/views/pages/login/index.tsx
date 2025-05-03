@@ -112,6 +112,7 @@ const LoginPage: NextPage<TProps> = () => {
                                         placeholder='Please input password'
                                         helperText={errors?.password?.message}
                                         type={showPassword ? 'text' : 'password'}
+
                                     // InputProps={{
                                     //     endAdornment: (
                                     //         // <InputAdornment position='end'>
@@ -126,6 +127,7 @@ const LoginPage: NextPage<TProps> = () => {
                                     //     )
                                     // }}
                                     />
+
                                 )}
                                 name='password'
                             />
