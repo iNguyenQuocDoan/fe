@@ -33,6 +33,9 @@ import Facebook from '/public/svgs/facebook.svg'
 import { useTheme } from '@mui/material/styles'
 import Link from 'next/link'
 
+// ** Hooks
+import { useAuth } from 'src/hooks/useAuth'
+
 type TProps = {}
 
 const LoginPage: NextPage<TProps> = () => {
@@ -40,6 +43,12 @@ const LoginPage: NextPage<TProps> = () => {
 
     const [showPassword, setShowPassword] = useState(false)
     const [isRemember, setIsRemember] = useState(true)
+
+    // ** context
+
+    const { login } = useAuth()
+
+
 
     //** theme from MUI-core
     const theme = useTheme()
@@ -69,6 +78,10 @@ const LoginPage: NextPage<TProps> = () => {
 
     console.log('erorr', { errors })
     const onSubmit = (data: { email: string; password: string }) => {
+        if (!Object.keys(errors)?.length) {
+            login({ ...data, rememberMe: isRemember })
+        }
+
         console.log('data', { data, errors })
     }
 
@@ -232,7 +245,7 @@ const LoginPage: NextPage<TProps> = () => {
                                     {"Don't have an account?"}
                                 </Typography>
 
-                                <Link href='register' >
+                                <Link style={{ color: theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white }} href='register' >
                                     {" Resgiter"}
                                 </Link>
 
