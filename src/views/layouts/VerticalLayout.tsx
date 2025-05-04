@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton'
 import { NextPage } from 'next'
 
 // ** Layout
-import { mainListItems, secondaryListItems } from './listitems'
+import { mainListItems, secondaryListItems } from './listItems'
 
 const drawerWidth: number = 240
 
