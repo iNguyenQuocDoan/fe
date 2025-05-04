@@ -273,7 +273,7 @@ const RegisterPage: NextPage<TProps> = () => {
                                     {"Do you have an account?"}
                                 </Typography>
 
-                                <Link href='/login' >
+                                <Link href='/login' style={{ color: theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white }} >
                                     {" Login "}
                                 </Link>
 
@@ -291,8 +291,8 @@ const RegisterPage: NextPage<TProps> = () => {
 
                         </form>
                     </Box>
-                </Box>
-            </Box>
+                </Box >
+            </Box >
         </>
     )
 }
