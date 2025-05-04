@@ -21,7 +21,7 @@ import Container from '@mui/material/Container';
 
 
 // ** layout
-import { mainListItems, secondaryListItems } from './listitems';
+import { mainListItems, secondaryListItems } from './listItems';
 import VerticalLayout from './VerticalLayout';
 import HorizontalLayout from './HorizontalLayout';
 
