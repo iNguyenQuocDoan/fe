@@ -2,13 +2,12 @@
 import { NextPage } from 'next'
 
 
-
 // ** Import React
 import { useState } from 'react'
 
 
 //  ** Import Mui
-import { Button, Checkbox, IconButton, InputAdornment } from '@mui/material'
+import { Button, IconButton, InputAdornment } from '@mui/material'
 import { Box, CssBaseline, FormControlLabel, Typography } from '@mui/material'
 
 // ** Import form
@@ -23,8 +22,9 @@ import Icon from 'src/components/Icon'
 import Image from 'next/image'
 
 // **  Images
-import LoginDark from '/public/images/login-dark.png'
-import LoginLight from '/public/images/login-light.png'
+import RegisterDark from '/public/images/register-dark.png'
+import RegisterLight from '/public/images/register-light.png'
+
 import Google from '/public/svgs/google.svg'
 import Facebook from '/public/svgs/facebook.svg'
 
@@ -34,11 +34,17 @@ import { useTheme } from '@mui/material/styles'
 import Link from 'next/link'
 
 type TProps = {}
+type TDefaultValue = {
+    email: string,
+    password: string,
+    comfirmPassword: string
+}
 
-const LoginPage: NextPage<TProps> = () => {
+const RegisterPage: NextPage<TProps> = () => {
     // State
 
     const [showPassword, setShowPassword] = useState(false)
+    const [showComfirmPassword, setShowConfirmPassword] = useState(false)
     const [isRemember, setIsRemember] = useState(true)
 
     //** theme from MUI-core
@@ -50,9 +56,13 @@ const LoginPage: NextPage<TProps> = () => {
             password: yup
                 .string()
                 .required('The field is require')
-                .matches(PASSWORD_REG, 'Password is contain charactor, special character, number')
+                .matches(PASSWORD_REG, 'The password is containe charactor, special character, number'),
+            comfirmPassword: yup
+                .string()
+                .required('The field is require')
+                .matches(PASSWORD_REG, 'The password is containe charactor, special character, number').oneOf([yup.ref("password"), ""], "The confirm password need map with password ")
         })
-        .required()
+
 
     const {
         handleSubmit,
@@ -61,13 +71,14 @@ const LoginPage: NextPage<TProps> = () => {
     } = useForm({
         defaultValues: {
             email: '',
-            password: ''
+            password: '',
+            comfirmPassword: ''
         },
         mode: 'onBlur',
         resolver: yupResolver(schema)
     })
 
-    console.log('erorr', { errors })
+
     const onSubmit = (data: { email: string; password: string }) => {
         console.log('data', { data, errors })
     }
@@ -106,7 +117,7 @@ const LoginPage: NextPage<TProps> = () => {
                     }}
                 >
                     <Image
-                        src={theme.palette.mode === "light" ? LoginLight : LoginDark}
+                        src={theme.palette.mode === "light" ? RegisterLight : RegisterDark}
                         alt='login image'
                         style={{
                             height: '70% ',
@@ -134,7 +145,7 @@ const LoginPage: NextPage<TProps> = () => {
                         }}
                     >
                         <Typography component='h1' variant='h5'>
-                            Sign in
+                            Register
                         </Typography>
                         <form onSubmit={handleSubmit(onSubmit)} autoComplete='off' noValidate>
                             <Box sx={{ mt: 2, width: "350px" }}>
@@ -160,10 +171,7 @@ const LoginPage: NextPage<TProps> = () => {
                                 />
                             </Box>
 
-                            <Box sx={{
-                                mt: 2,
-                                width: "350px"
-                            }}>
+                            <Box sx={{ mt: 2, width: "350px" }}>
                                 <Controller
                                     control={control}
                                     rules={{
@@ -206,34 +214,67 @@ const LoginPage: NextPage<TProps> = () => {
                                     name='password'
                                 />
                             </Box>
-                            <Box sx={{ mt: '5px', display: 'flex', alignItems: 'center', justifyContent: "space-between" }}>
-                                {' '}
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            value='remember'
-                                            color='primary'
-                                            checked={isRemember}
-                                            onChange={e => setIsRemember(e.target.checked)}
+
+                            <Box sx={{ mt: 2, width: "350px" }}>
+                                <Controller
+                                    control={control}
+                                    rules={{
+                                        required: true
+                                    }}
+                                    render={({ field: { onChange, onBlur, value } }) => (
+                                        <CustomTextField
+                                            required
+                                            fullWidth
+                                            label='Comfirm password'
+                                            onChange={onChange}
+                                            onBlur={onBlur}
+                                            value={value}
+                                            error={Boolean(errors?.comfirmPassword)}
+                                            placeholder='Enter confirm password'
+                                            helperText={errors?.comfirmPassword?.message}
+                                            type={showComfirmPassword ? 'text' : 'password'}
+
+
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position='end'>
+                                                        <IconButton edge='end' onClick={() => setShowConfirmPassword(!showComfirmPassword)}>
+                                                            {showComfirmPassword ? (
+                                                                <Icon icon='material-symbols:visibility-outline' />
+                                                            ) : (
+                                                                <Icon icon='material-symbols:visibility-off-outline' />
+                                                            )}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                ),
+                                                sx: {
+                                                    // Edge / IE
+                                                    '& input::-ms-reveal, & input::-ms-clear': {
+                                                        display: 'none',
+                                                    }
+                                                }
+                                            }}
+
+
                                         />
-                                    }
-                                    label='Remember me'
+                                    )}
+                                    name='comfirmPassword'
                                 />
-                                <Typography >
-                                    Forgot password?
-                                </Typography>
                             </Box>
 
+
+
+
                             <Button type='submit' fullWidth variant='contained' color='primary' sx={{ mt: 3, mb: 2 }}>
-                                Sign In
+                                Register
                             </Button>
                             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "4px" }}>
                                 <Typography>
-                                    {"Don't have an account?"}
+                                    {"Do you have an account?"}
                                 </Typography>
 
-                                <Link href='register' >
-                                    {" Resgiter"}
+                                <Link href='/login' >
+                                    {" Login "}
                                 </Link>
 
                             </Box>
@@ -256,4 +297,4 @@ const LoginPage: NextPage<TProps> = () => {
     )
 }
 
-export default LoginPage
+export default RegisterPage
