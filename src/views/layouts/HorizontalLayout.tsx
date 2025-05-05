@@ -13,6 +13,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
+import IconifyIcon from 'src/components/Icon';
 
 
 
@@ -38,6 +39,7 @@ const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
     zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: theme.palette.customColors.main,
     transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -79,7 +81,7 @@ const HorizontalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
                             ...(open && { display: 'none' }),
                         }}
                     >
-                        {/* <MenuIcon /> */}
+                        <IconifyIcon icon={"line-md:menu"} />
                     </IconButton>
                     <Typography
                         component="h1"
@@ -92,7 +94,8 @@ const HorizontalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
                     </Typography>
                     <IconButton color="inherit">
                         <Badge badgeContent={4} color="secondary">
-                            {/* <NotificationsIcon /> */}
+
+                            <IconifyIcon icon={"ion:notifications"} />
                         </Badge>
                     </IconButton>
                 </Toolbar>
