@@ -4,30 +4,90 @@ import { useState } from 'react'
 
 // ** Next
 import { NextPage } from 'next'
-import { Box, BoxProps, styled } from '@mui/material'
+
 
 // ** MUI
 import List from '@mui/material/List'
-import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
 import { Collapse, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from '@mui/material'
 import IconifyIcon from 'src/components/Icon'
-import VerticalLayout from './VerticalLayout'
 
-// ** Component
+// ** Components
 import { VerticalItems } from 'src/configs/layout'
 
 type TProps = {}
 
+const RecursiveListItems = ({ items, level }: { items: any, level: number }) => {
 
+
+    const [openItems, setOpenItems] = useState<{ [key: string]: boolean }>({})
+
+    const handleClick = (title: string) => {
+        setOpenItems((prev) => ({
+            ...prev,
+            [title]: !prev[title]
+        }))
+
+    }
+
+    console.log("open", { openItems })
+
+    return (
+        <>
+            {items?.map((item: any) => {
+
+                return (
+                    <React.Fragment key={item.title}>
+                        <ListItemButton
+
+                            sx={{
+                                padding: `8px 10px 8px ${level * 10}px`,
+                            }}
+
+                            onClick={
+
+                                () => {
+                                    if (item.children) {
+                                        handleClick(item.title)
+                                    }
+                                }
+                            }>
+                            <ListItemIcon>
+                                <IconifyIcon icon={item.icon} />
+                            </ListItemIcon>
+                            <ListItemText primary={item.title} />
+                            {item?.children && item?.children.length > 0 && (
+                                <>
+                                    {openItems[item.title] ? (
+                                        <IconifyIcon icon={"ooui:expand"} style={{
+                                            transform: "rotate(180deg)"
+                                        }} />
+                                    ) : (
+                                        <IconifyIcon icon={"ooui:expand"} />
+                                    )}
+
+                                </>
+
+                            )}
+                        </ListItemButton>
+
+                        {item.children && item.children?.length > 0 && (
+                            <>
+
+                                <Collapse in={openItems[item.title]} timeout='auto' unmountOnExit>
+                                    <RecursiveListItems items={item.children} level={level + 1} />
+                                </Collapse>
+
+                            </>
+                        )}
+                    </React.Fragment>
+                )
+            })}
+        </>
+    )
+}
 
 const ListVerticalLayout: NextPage<TProps> = ({ }) => {
 
-    const [open, setOpen] = useState(false)
-
-    const handleClick = () => { setOpen(!open) }
-
-    console.log("open", { open })
 
     return (
         <>
@@ -36,45 +96,7 @@ const ListVerticalLayout: NextPage<TProps> = ({ }) => {
                 component='nav'
                 aria-labelledby='nested-list-subheader'
             >
-                {VerticalItems?.map((item) => {
-
-                    return (
-                        <React.Fragment key={item.title}>
-                            <ListItemButton onClick={
-                                () => {
-                                    if (item.children) {
-                                        handleClick()
-                                    }
-                                }
-                            }>
-                                <ListItemIcon>
-                                    <IconifyIcon icon={item.icon} />
-                                </ListItemIcon>
-                                <ListItemText primary={item.title} />
-                            </ListItemButton>
-
-                            {item.children && item.children?.length > 0 && (
-                                <>
-                                    {item.children?.map((child) => {
-                                        return (<>
-                                            <Collapse in={open} timeout='auto' unmountOnExit>
-                                                <List component='div' disablePadding>
-                                                    <ListItemButton sx={{ pl: 4 }}>
-                                                        <ListItemIcon>
-                                                            <IconifyIcon icon={child.icon} />
-                                                        </ListItemIcon>
-                                                        <ListItemText primary={child.title} />
-                                                    </ListItemButton>
-                                                </List>
-                                            </Collapse>
-                                        </>)
-
-                                    })}
-                                </>
-                            )}
-                        </React.Fragment>
-                    )
-                })}
+                <RecursiveListItems items={VerticalItems} level={1} />
             </List>
         </>
     )

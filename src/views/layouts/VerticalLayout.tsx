@@ -5,10 +5,9 @@ import * as React from 'react'
 import { styled } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import Toolbar from '@mui/material/Toolbar'
-import List from '@mui/material/List'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
-import { Collapse, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from '@mui/material'
+
 
 // ** next
 import { NextPage } from 'next'
@@ -68,7 +67,7 @@ const VerticalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
                     }}
                 >
                     <IconButton onClick={toggleDrawer}>
-                        {/* <ChevronLeftIcon /> */}
+                        <IconifyIcon icon={"mingcute:left-line"} />
                     </IconButton>
                 </Toolbar>
                 <Divider />
