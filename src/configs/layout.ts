@@ -1,23 +1,34 @@
 export const VerticalItems = [
     {
-        title: "Email",
+        title: "Parent 1",
         icon: "ic:outline-more",
         path: "/",
         children: [
             {
-                title: "check",
+                title: "check child 1.1",
                 icon: "ic:outline-more",
                 path: "/",
-            }
+                children: [
+                    {
+                        title: "check child 1.1.1",
+                        icon: "ic:outline-more",
+                        path: "/",
+                    },
+
+
+                ],
+            },
+
         ]
+
     },
     {
-        title: "Name",
+        title: "Parent 2",
         icon: "ic:outline-more",
         path: "/",
         children: [
             {
-                title: "check",
+                title: "check child children 2.1",
                 icon: "ic:outline-more",
                 path: "/",
             }

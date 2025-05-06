@@ -20,11 +20,6 @@ import VerticalLayout from './VerticalLayout';
 import HorizontalLayout from './HorizontalLayout';
 
 
-
-
-const drawerWidth: number = 240;
-
-
 type TProps = {
     children: React.ReactNode
 }
