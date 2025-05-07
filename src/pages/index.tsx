@@ -2,24 +2,13 @@
 import Head from 'next/head'
 
 import axios from 'axios'
-import { useEffect } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { useTheme } from '@emotion/react'
 import { Box, Typography } from '@mui/material'
 import CustomTextField from 'src/components/text-field'
+import LayoutNotApp from 'src/views/layouts/LayoutNotApp'
 
 export default function Home() {
-  // const fetchApiUser = async () => {
-  //   await axios
-  //     .get('https://api-shop-lks2.onrender.com/api/users?limit=10&page=1&order=created%20asc')
-  //     .then(res => console.log('res', res))
-  // }
-  // useEffect(() => {
-  //   fetchApiUser()
-  // }, [])
-
-  // const theme = useTheme()
-  // console.log('theme', { theme })
-
   return (
     <>
       <Head>
@@ -28,9 +17,8 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      {/* <Box sx={{ margin: 6, width: "200px" }}>
-        <CustomTextField id='outlined-multiline-flexible' label='text' />
-      </Box> */}
     </>
   )
 }
+
+Home.getLayout = (page: ReactNode) => <LayoutNotApp>{page}</LayoutNotApp>
